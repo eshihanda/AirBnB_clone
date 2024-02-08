@@ -18,6 +18,29 @@ class TestBaseModel(unittest.Testcase):
 		self.assertIsNotNone(my_model.created_at)
 		self.assertIsNotNone(my_model.updated_at)
 
+	def test_init_with_kwargs(self):
+		"""test multiple number of arguments"""
+		kwargs = {
+			'id': 89,
+			'name': 'School',
+			'created_at': '2024-02-06T12:00:00.000000',
+			'updated_at': '2024-02-06T12:00:00.000000',
+
+		}
+		my_model = BaseModel()
+
+		self.assertEqual(my_model.id, kwargs['id'])
+		self.assertEqual(my_model.created_at, datetime.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f'))
+		self.assertEqual(my_model.updated_at, datetime.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f'))
+		self.assertEqual(my_model.name, 'School')
+
+	def test_init_with_empty_kwargs(self):
+		my_model = BaseModel()
+
+		self.assertIsInstance(my_model.id, str)
+		self.assertIsInstance(my_model.created_at, datetime)
+		self.assertIsInstance(my_model.updated_at, datetime)
+
 	def test_save_method(self):
 		"""tests the save method"""
 		my_model = BaseModel()
