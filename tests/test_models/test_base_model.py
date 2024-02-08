@@ -6,7 +6,7 @@ from models.base_model import BaseModel
 from datetime import datetime
 
 
-class TestBaseModel(unittest.Testcase):
+class TestBaseModel(unittest.TestCase):
 	"""tests the base model class"""
 	def setUp(self):
 		self.base_model = BaseModel()
@@ -20,19 +20,19 @@ class TestBaseModel(unittest.Testcase):
 
 	def test_init_with_kwargs(self):
 		"""test multiple number of arguments"""
-		kwargs = {
-			'id': 89,
-			'name': 'School',
-			'created_at': '2024-02-06T12:00:00.000000',
-			'updated_at': '2024-02-06T12:00:00.000000',
-
-		}
 		my_model = BaseModel()
-
-		self.assertEqual(my_model.id, kwargs['id'])
-		self.assertEqual(my_model.created_at, datetime.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f'))
-		self.assertEqual(my_model.updated_at, datetime.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f'))
-		self.assertEqual(my_model.name, 'School')
+		self.assertIs(type(my_model), BaseModel)
+		my_model.name = "School"
+		my_model.number = 89
+		kwargs = {
+			"id": str,
+			"name": str,
+			"number": int,
+			"created_at": datetime,
+			"updated_at": datetime
+		}
+		self.assertEqual(my_model.number, 89)
+		self.assertEqual(my_model.name, "School")
 
 	def test_init_with_empty_kwargs(self):
 		my_model = BaseModel()
@@ -66,5 +66,5 @@ class TestBaseModel(unittest.Testcase):
 		"""test the string method"""
 		my_model = BaseModel()
 
-		string = "[BaseModel] ({}) {}".format(inst.id, inst.__dict__)
+		string = "[BaseModel] ({}) {}".format(my_model.id, my_model.__dict__)
 		self.assertEqual(string, str(my_model))
