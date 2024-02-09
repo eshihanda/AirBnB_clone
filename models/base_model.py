@@ -8,6 +8,7 @@ import models
 
 
 class BaseModel:
+
     """Base model class from which other classes inherit.
 
     Attributes:
