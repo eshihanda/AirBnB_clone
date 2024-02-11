@@ -2,6 +2,7 @@
 """ tests the city class"""
 
 from models.city import City
+from models.base_model import BaseModel
 import unittest
 
 
@@ -29,7 +30,7 @@ class TestCity(unittest.TestCase):
         self.assertTrue(hasattr(city, "state_id"))
         self.assertEqual(city.state_id, "")
 
-    def test_name_attr(self)
+    def test_name_attr(self):
         """tests the attribute when set"""
         city = City(state_id='123', name='Michigan')
         self.assertEqual(city.state_id, '123')
