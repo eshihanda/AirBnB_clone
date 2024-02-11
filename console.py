@@ -85,9 +85,6 @@ class HBNBCommand(cmd.Cmd):
         print(", ".join(instances), end="")
         print("]")
 
-
-
-
 	def do_quit(self, arg):
 		""" program exited"""
 		return True
@@ -99,7 +96,7 @@ class HBNBCommand(cmd.Cmd):
 
 	def empty_line(self):
 		"""do nothing when using ENTER"""
-		pass
+		return False
 
 if __name__ == '__main__':
 	HBNBCommand().cmdloop()
