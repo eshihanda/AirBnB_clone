@@ -2,8 +2,9 @@
 """defines a class base model with all common attributes
 and methods for other classes """
 
-import uuid
 from datetime import datetime
+import uuid
+
 
 class BaseModel:
 	"""the base model class from which other classes inherit from"""
