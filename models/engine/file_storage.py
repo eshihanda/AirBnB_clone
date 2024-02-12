@@ -5,8 +5,9 @@ and deserializes JSON file to instances"""
 import json
 from models.base_model import BaseModel
 from pathlib import Path
+from models.user import User
 
-class fileStorage:
+class FileStorage:
 
     """ A class that  serializes instances to a JSON file
     and deserializes JSON file to instances
@@ -20,35 +21,35 @@ class fileStorage:
 
     def all(self):
         """returns the dictionary __objects"""
-        return fileStorage.__objects
+        return FileStorage.__objects
     
     def new(self, obj):
         """ sets in __objects the obj with key
         <obj class name>.id
         """
 
-        obj_name = type(obj).__name__
+        obj_name = obj.__class__.__name__
         key = f"{obj_name}.{obj.id}"
-        fileStorage.__objects[key] = obj
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """ serializes __objects to the JSON
         file (path: __file_path)"""
-        copy_objects = fileStorage.__objects
+        copy_objects = FileStorage.__objects
         dict_objs = {}
 
         for key in copy_objects.keys():
             dict_objs[key] = copy_objects[key].to_dict()
 
-        with open(fileStorage.__file_path, "w", encoding="utf-8") as f:
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
             json.dump(dict_objs, f)
         
     def reload(self):
         """ deserializes the JSON file to __objects"""
-        file = Path(fileStorage.__file_path)
+        file = Path(FileStorage.__file_path)
 
         if file.exists():
-            with open(fileStorage.__file_path, "r", encoding="utf-8") as f:
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
                 try:
                     dict_obj = json.load(f)
 
@@ -56,7 +57,7 @@ class fileStorage:
                         class_name, obj_id = key.split(".")
                         cls_obj = eval(class_name)
                         instance = cls_obj(**value)
-                        fileStorage.__objects[key] = instance
+                        FileStorage.__objects[key] = instance
 
                 except Exception:
                     pass
