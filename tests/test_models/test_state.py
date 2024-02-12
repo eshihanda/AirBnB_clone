@@ -2,6 +2,7 @@
 """ tests the state class"""
 
 from models.state import State
+from models.base_model import BaseModel
 import unittest
 
 
@@ -22,7 +23,7 @@ class TestState(unittest.TestCase):
 		self.assertTrue(hasattr(state, "name"))
 		self.assertEqual(state.name, "")
 
-	def test_name_attr(self)
+	def test_name_attr(self):
 		"""tests the attribute when set"""
 		state = State(name='Michigan')
 		self.assertEqual(state.name, 'Michigan')
