@@ -4,8 +4,15 @@ and deserializes JSON file to instances"""
 
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 from pathlib import Path
 from models.user import User
+
 
 class FileStorage:
 
@@ -22,7 +29,7 @@ class FileStorage:
     def all(self):
         """returns the dictionary __objects"""
         return FileStorage.__objects
-    
+
     def new(self, obj):
         """ sets in __objects the obj with key
         <obj class name>.id
@@ -43,7 +50,7 @@ class FileStorage:
 
         with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
             json.dump(dict_objs, f)
-        
+
     def reload(self):
         """ deserializes the JSON file to __objects"""
         file = Path(FileStorage.__file_path)
@@ -58,4 +65,3 @@ class FileStorage:
                     cls_obj = eval(class_name)
                     instance = cls_obj(**value)
                     self.new(instance)
-

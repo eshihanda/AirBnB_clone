@@ -40,11 +40,10 @@ class BaseModel:
         else:
              models.storage.new(self)
 
-
-
     def __str__(self):
         """Returns string representation of the class instance."""
-        return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{:s}] ({:s}) {}".format(self.__class__.__name__,
+                                         self.id, self.__dict__)
 
     def save(self):
         """Updates the updated_at attribute with the current time."""
