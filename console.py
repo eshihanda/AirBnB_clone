@@ -21,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
 		print("Quit command to exit the program")
 	
 	def do_EOF(self):
-		"""signal end of file or program"""
+		"""EOF signal to exit the program."""
 		print()
 		return True
 
@@ -30,9 +30,9 @@ class HBNBCommand(cmd.Cmd):
 		pass
 
 	def do_create(self, arg):
-		"""Creates a new instance of BaseModel,
-		saves it (to the JSON file) and prints the id"""
-
+		"""Usage: create <class>
+        Create a new class instance and print its id.
+        """
 		args = shlex.split(arg)
 
 		if not len(args):
@@ -47,9 +47,9 @@ class HBNBCommand(cmd.Cmd):
 			print(instance.id)
 
 	def do_show(self,arg):
-		""" Prints the string representation of an instance based on the class
-		name and id. Ex: $ show BaseModel 1234-1234-1234."""
-
+		"""Usage: show <class> <id> or <class>.show(<id>)
+        Display the string representation of a class instance of a given id.
+        """
 		args = shlex.split(arg)
 		if not len(args):
 			print("** class name missing **")
@@ -66,10 +66,9 @@ class HBNBCommand(cmd.Cmd):
 				print("** no instance found **")
 		
 	def do_destroy(self, arg):
-		"""
-		Deletes an instance based on the class name and id (save the 
-		change into	the JSON file). Ex: $ destroy BaseModel 1234-1234-1234.
-		"""
+		"""Usage: destroy <class> <id> or <class>.destroy(<id>)
+        Delete a class instance of a given id."""
+
 		args = shlex.split(arg)
 		if not len(args):
 			print("** class name missing **")
@@ -87,10 +86,10 @@ class HBNBCommand(cmd.Cmd):
 				storage.save()
 
 	def do_all(self, arg):
-		"""
-		Prints all string representation of
-		all instances based or not on the class name
-		"""
+		"""Usage: all or all <class> or <class>.all()
+        Display string representations of all instances of a given class.
+        If no class is specified, displays all instantiated objects."""
+
 		obj = storage.all()
 
 		args = shlex.split(arg)
@@ -107,11 +106,12 @@ class HBNBCommand(cmd.Cmd):
 					print(str(value))
 
 	def do_update(self, arg):
-		"""
-		Updates an instance based on the class name and id by
-		adding or updating attribute (save the change into the JSON file).
-		Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
-		"""
+		"""Usage: update <class> <id> <attribute_name> <attribute_value> or
+       <class>.update(<id>, <attribute_name>, <attribute_value>) or
+       <class>.update(<id>, <dictionary>)
+        Update a class instance of a given id by adding or updating
+        a given attribute key/value pair or dictionary."""
+
 		args = shlex.split(arg)
 
 		if len(args) == 0:

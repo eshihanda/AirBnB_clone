@@ -4,6 +4,11 @@
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
+from models.engine.file_storage import FileStorage
+from io import StringIO
+from console import HBNBCommand
+from unittest.mock import patch
+
 
 
 class TestBaseModel(unittest.TestCase):
@@ -68,3 +73,24 @@ class TestBaseModel(unittest.TestCase):
 
 		string = "[BaseModel] ({}) {}".format(my_model.id, my_model.__dict__)
 		self.assertEqual(string, str(my_model))
+
+	def test_private_class_attribute(self):
+		my_model = FileStorage()
+		self.assertIsInstance(my_model.__file_path, str)
+		self.assertIsInstance(my_model.__objects, dict)
+	
+	def test_all_method(self):
+		"""Test for the all method"""
+		h = ("Prints all string representation of"
+            "\nall instances based or not on the class name")
+
+		with patch("sys.stdout", new=StringIO()) as output:
+			self.assertFalse(HBNBCommand().onecmd("help all"))
+			self.assertEqual(h, output.getvalue().strip())
+
+
+
+
+
+
+
